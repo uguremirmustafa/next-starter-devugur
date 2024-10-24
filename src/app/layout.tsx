@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import AppNavbar from "@/components/app-navbar";
+import Providers from "@/components/providers";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,12 +16,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <link
         rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📦</text></svg>"
       />
-      <body>{children}</body>
+      <body className="h-screen w-screen">
+        <Providers>
+          <AppNavbar />
+          <main className="flex-grow overflow-auto bg-orange-100 bg-[url(/light-bg.svg)] bg-cover dark:bg-gray-700 dark:bg-[url(/dark-bg.svg)]">
+            {children}
+          </main>
+        </Providers>
+      </body>
     </html>
   );
 }
