@@ -4,6 +4,10 @@ import { ZodError, z } from "zod";
 export const env = createEnv({
   server: {
     NODE_ENV: z.enum(["development", "production"]),
+    GOOGLE_CLIENT_ID: z.string(),
+    GOOGLE_CLIENT_SECRET: z.string(),
+    NEXTAUTH_URL: z.string().url(),
+    NEXTAUTH_SECRET: z.string(),
   },
 
   // eslint-disable-next-line n/no-process-env
@@ -24,5 +28,3 @@ export const env = createEnv({
     process.exit(1);
   },
 });
-
-console.log(env);

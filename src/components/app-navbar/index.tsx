@@ -13,22 +13,29 @@ import {
   NavbarMenuToggle,
 } from "@nextui-org/react";
 import { IconPackage } from "@tabler/icons-react";
+import { useSession } from "next-auth/react";
 
+import AuthButton from "./auth-button";
 import { ThemeSwitcher } from "./theme-switcher";
 
 export default function AppNavbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const { status } = useSession();
 
   const menuItems = [
     {
       label: "Home",
       href: "/",
     },
-    {
+  ];
+
+  if (status === "authenticated") {
+    menuItems.push({
       label: "Profile",
       href: "/profile",
-    },
-  ];
+    });
+  }
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} isBlurred={true}>
@@ -44,21 +51,32 @@ export default function AppNavbar() {
       </NavbarContent>
 
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
-        {menuItems.map((item, index) => (
-          <NavbarItem key={`${item}-${index}`}>
-            <Link className="w-full" href={item.href} size="lg">
-              {item.label}
-            </Link>
-          </NavbarItem>
-        ))}
+        {menuItems.map((item, index) => {
+          return (
+            <NavbarItem key={`${item}-${index}`}>
+              <Link className="w-full" href={item.href} size="lg">
+                {item.label}
+              </Link>
+            </NavbarItem>
+          );
+        })}
       </NavbarContent>
       <NavbarContent className="hidden gap-4 sm:flex" justify="end">
         <NavbarItem>
           <ThemeSwitcher />
         </NavbarItem>
+        <NavbarItem>
+          <AuthButton minimal={false} />
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarMenu>
+        <NavbarMenuItem>
+          <ThemeSwitcher showLabel />
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <AuthButton />
+        </NavbarMenuItem>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link className="w-full" href={item.href} size="lg">
@@ -66,9 +84,6 @@ export default function AppNavbar() {
             </Link>
           </NavbarMenuItem>
         ))}
-        <NavbarMenuItem>
-          <ThemeSwitcher showLabel />
-        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );

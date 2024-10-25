@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import AppNavbar from "@/components/app-navbar";
 import Providers from "@/components/providers";
@@ -25,7 +26,7 @@ export default function RootLayout({
         <Providers>
           <AppNavbar />
           <main className="flex-grow overflow-auto bg-orange-100 bg-[url(/light-bg.svg)] bg-cover dark:bg-gray-700 dark:bg-[url(/dark-bg.svg)]">
-            {children}
+            <Suspense>{children}</Suspense>
           </main>
         </Providers>
       </body>
