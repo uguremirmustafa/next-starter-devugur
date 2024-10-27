@@ -32,6 +32,10 @@ export default function AppNavbar() {
 
   if (status === "authenticated") {
     menuItems.push({
+      label: "Advices",
+      href: "/advices",
+    });
+    menuItems.push({
       label: "Profile",
       href: "/profile",
     });

@@ -11,8 +11,7 @@ export default function LargeSpinner() {
       }}
       className="relative top-[50%] mx-auto -translate-y-[50%]"
       strokeWidth={4}
-      showValueLabel={true}
-      aria-labelledby="Loading..."
+      aria-label="Loading..."
     />
   );
 }

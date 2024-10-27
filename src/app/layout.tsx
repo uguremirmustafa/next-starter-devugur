@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 
 import AppNavbar from "@/components/app-navbar";
 import Providers from "@/components/providers";
@@ -25,8 +24,8 @@ export default function RootLayout({
       <body className="h-screen w-screen">
         <Providers>
           <AppNavbar />
-          <main className="flex-grow overflow-auto bg-orange-100 bg-[url(/light-bg.svg)] bg-cover dark:bg-gray-700 dark:bg-[url(/dark-bg.svg)]">
-            <Suspense>{children}</Suspense>
+          <main className="flex-grow overflow-auto bg-orange-100 bg-gradient-to-br from-gray-300 to-gray-200 dark:from-gray-900 dark:to-gray-700">
+            <div className="mx-auto max-w-5xl px-4 py-4">{children}</div>
           </main>
         </Providers>
       </body>

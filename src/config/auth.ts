@@ -1,6 +1,8 @@
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { NextAuthOptions } from "next-auth";
 import Google from "next-auth/providers/google";
 
+import db from "@/db";
 import { env } from "@/env/server";
 
 const options: NextAuthOptions = {
@@ -12,6 +14,13 @@ const options: NextAuthOptions = {
   ],
   pages: {
     signIn: "/",
+  },
+  adapter: DrizzleAdapter(db),
+  callbacks: {
+    session({ session, user }) {
+      session.user.id = user.id;
+      return session;
+    },
   },
 };
 

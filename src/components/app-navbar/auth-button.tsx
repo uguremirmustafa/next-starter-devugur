@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
   Avatar,
   Button,
@@ -14,9 +16,10 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function AuthButton({ minimal = true }: { minimal?: boolean }) {
   const { status, data } = useSession();
+  const router = useRouter();
 
   if (status === "loading") {
-    return <CircularProgress />;
+    return <CircularProgress aria-label="Loading..." />;
   }
 
   if (status === "authenticated") {
@@ -38,10 +41,15 @@ export default function AuthButton({ minimal = true }: { minimal?: boolean }) {
             className="transition-transform"
             showFallback={!data.user?.image}
             src={data.user?.image || ""}
+            size="sm"
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
-          <DropdownItem key="profile" className="h-14 gap-2">
+          <DropdownItem
+            key="profile"
+            className="h-14 gap-2"
+            onClick={() => router.push("/profile")}
+          >
             <p className="font-semibold">Signed in as</p>
             <p className="font-semibold">{data.user?.email}</p>
           </DropdownItem>
