@@ -1,5 +1,9 @@
 import LargeSpinner from "@/components/large-spinner";
 
 export default function Loading() {
-  return <LargeSpinner />;
+  return (
+    <div className="grid items-center">
+      <LargeSpinner />
+    </div>
+  );
 }
