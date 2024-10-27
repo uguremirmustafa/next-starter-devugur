@@ -10,10 +10,12 @@ import { desc } from "drizzle-orm";
 
 import db from "@/db";
 import getRelativeDate from "@/utils/get-date-distance";
+import requireAuth from "@/utils/require-auth";
 
 import AdvicesClient from "./page.client";
 
 export default async function AdvicesPage() {
+  await requireAuth();
   const entries = await db.query.advices.findMany({
     limit: 10,
     columns: { description: true, id: true, createdAt: true },
